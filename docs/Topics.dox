@@ -1,0 +1,41 @@
+/** @defgroup utilities Utilitaires */
+/** @defgroup contracts Contrats */
+/** @defgroup vendors Vendors */
+
+/** @addtogroup ecs
+ *  @ingroup utilities
+ */
+/** @addtogroup i18n
+ *  @ingroup utilities
+ */
+/** @addtogroup maths
+ *  @ingroup utilities
+ */
+/** @addtogroup system
+ *  @ingroup utilities
+ */
+/** @addtogroup procedurals
+ *  @ingroup utilities
+ */
+/** @addtogroup modulemanager
+ *  @ingroup utilities
+ */
+
+/** @addtogroup imodule
+ *  @ingroup contracts
+ */
+/** @addtogroup icore
+ *  @ingroup contracts
+ */
+/** @addtogroup igraphic
+ *  @ingroup contracts
+ */
+/** @addtogroup iaudio
+ *  @ingroup contracts
+ */
+/** @addtogroup raylib
+ *  @ingroup vendors
+ */
+/** @addtogroup sfml
+ *  @ingroup vendors
+ */

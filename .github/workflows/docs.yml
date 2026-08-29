@@ -1,0 +1,40 @@
+name: Build & Publish Docs
+
+on:
+  push:
+  workflow_dispatch:
+  # les depots sources changent sans que celui-ci bouge : on regenere
+  # tous les matins pour que la doc suive
+  schedule:
+    - cron: '0 5 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake doxygen
+
+      - name: Configure
+        run: cmake -B build
+
+      - name: Build docs
+        run: cmake --build build
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/html
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "Update gh-pages ${{ github.sha }}"
