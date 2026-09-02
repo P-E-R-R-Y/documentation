@@ -65,23 +65,24 @@ Gardes, pas repris. Rien dans l'ensemble vivant ne les reference.
 
 | repo | dernier commit | fichiers | pourquoi on le garde |
 |---|---|---|---|
-| `engine` | 2025-02-24 | 2 | `CustomisableEngine<Parents...>` — composition a la compilation, a revoir |
 | `raygraphic` | 2025-11-13 | 15 | son CMake sert de modele au prochain |
 | `sfmlgraphic` | 2025-10-02 | 14 | son CMake sert de modele au prochain |
+| `engine` | 2025-02-24 | 2 | `CustomisableEngine<Parents...>` — **clone local seul**, plus sur GitHub |
 | `iplugin` | *a creer* | — | `IPluginModule::createPlugin() -> IPlugin`, a concevoir |
 | `idebug` | *a creer* | — | `IDebugModule::createDebug() -> IDebug`, a concevoir |
 
-Les trois premiers sont **archives sur GitHub** : lecture seule, conserves.
-Les deux derniers restent a ecrire.
+`raygraphic` et `sfmlgraphic` sont **archives sur GitHub** : lecture seule.
+`engine` n'existe plus que comme clone local — rien a archiver a distance.
+`iplugin` et `idebug` restent a ecrire.
 
 ## Supprimes
 
 | repo | fichiers | remplace par |
 |---|---|---|
 | `iapp` | 7 | `icore` |
-| `iinfo` | 2 | `imodule` / `modulemanager` |
 | `finder` | 5 | `modulemanager/SharedLibrary` |
 | `idebug` | 3 | a reecrire de zero avec `iplugin` |
+| `iinfo` | 2 | deja absent de GitHub avant qu'on y touche |
 
 ## Encore en attente de ton geste
 
