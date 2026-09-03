@@ -1,20 +1,21 @@
-# hunter — journal
+# hunter — changelog
 
-Marqueurs : 🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose
-dans le plan, code non ecrit.
+Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
+in the plan, no code written yet.
 
-## v0.1.0 *(premier commit, pousse cette session)*
+## v0.1.0 *(first commit, pushed this session)*
 
-- 🟢 ECS reel : `Position`, `Velocity`, `Depth`, `Life` et trois systemes
+- 🟢 real ECS: `Position`, `Velocity`, `Depth`, `Life` and three systems
   (`MotionSystem`, `ReapSystem`, `SpawnSystem`)
-- 🟢 `Perspective` : objet-valeur pur, deux doubles et tout le reste
-  derive, donc testable sans fenetre ni registre
-- 🟢 pas fixe a 60 Hz : sur machine lente le jeu rame, il ne ralentit pas
-- 🟢 audio a quatre voix, delai d'impact proportionnel a la profondeur
-- ⚪ `Host.hpp` (380 l.) et `Cadence.hpp` (114 l.), identiques a snake
+- 🟢 `Perspective`: pure value object, two doubles with everything else
+  derived, testable with no window or registry
+- 🟢 fixed 60 Hz step: on a slow machine the game lags, it never slows down
+- 🟢 four-voice audio, impact delay proportional to depth
+- ⚪ `Host.hpp` (380 lines) and `Cadence.hpp` (114 lines), identical to
+  snake
 
-## Propose, pas ecrit
+## Proposed, not written
 
-- 🟡 `Host` a sortir vers `Binding<T>` + `GraphicAssets`/`AudioAssets`
-- 🟡 `sources/main.cpp` et cible `_exec` : hunter deviendrait un binaire
-  autonome
+- 🟡 `Host` to be split out into `Binding<T>` + `GraphicAssets`/`AudioAssets`
+- 🟡 `sources/main.cpp` and an `_exec` target: hunter would become a
+  standalone binary

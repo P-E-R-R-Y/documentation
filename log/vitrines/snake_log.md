@@ -1,14 +1,14 @@
-# snake — journal
+# snake — changelog
 
-Marqueurs : 🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose
-dans le plan, code non ecrit.
+Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
+in the plan, no code written yet.
 
-## v0.1.0 *(premier commit, pousse cette session)*
+## v0.1.0 *(first commit, pushed this session)*
 
-- 🟢 grille qui suit la fenetre, cinq pas par seconde de montre
-- ⚪ `Host.hpp`/`Cadence.hpp`, copies identiques a hunter
+- 🟢 grid that follows the window, five ticks per second of wall clock
+- ⚪ `Host.hpp`/`Cadence.hpp`, identical copies to hunter
 
-## Propose, pas ecrit
+## Proposed, not written
 
-- 🟡 `Host` sorti, comme hunter
-- 🟡 cible `_exec`
+- 🟡 `Host` split out, same as hunter
+- 🟡 `_exec` target

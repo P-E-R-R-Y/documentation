@@ -1,14 +1,14 @@
-# cmake-utils — journal
+# cmake-utils — changelog
 
-Marqueurs : 🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose
-dans le plan, code non ecrit.
+Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
+in the plan, no code written yet.
 
 ## v0.1.0
 
-- 🟢 `ToolVar.cmake` : `cmake_var_extract`/`cmake_var_restore`, pour
-  survivre aux dependances qui forcent `BUILD_SHARED_LIBS`
+- 🟢 `ToolVar.cmake`: `cmake_var_extract`/`cmake_var_restore`, to survive
+  dependencies that force `BUILD_SHARED_LIBS`
 
-### Propose, pas ecrit
+### Proposed, not written
 
-- 🟡 `perry_module()` : un appel, trois cibles (`_headers` INTERFACE ·
-  SHARED · `_exec` si `iapp`)
+- 🟡 `perry_module()`: one call, three targets (`_headers` INTERFACE ·
+  SHARED · `_exec` if `iapp`)

@@ -1,27 +1,26 @@
-# arcade — journal
+# arcade — changelog
 
-Marqueurs : 🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose
-dans le plan, code non ecrit.
+Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
+in the plan, no code written yet.
 
-## v0.1.0 *(premier commit, pousse cette session)*
+## v0.1.0 *(first commit, pushed this session)*
 
-- 🟢 charge tout ce qui exporte `getModules()`, trie par `type()`
-- 🟢 menu a colonnes, une par contrat decouvert — y compris ceux qu'elle
-  ne sait pas utiliser
-- 🟢 terminal non bloquant sur stdin : la seule entree qui survit a une
-  borne sans fenetre
-- 🟢 bascule a chaud en quatre temps (`use()`)
+- 🟢 loads anything that exports `getModules()`, sorts by `type()`
+- 🟢 column menu, one per discovered contract — including ones it can't
+  itself use
+- 🟢 non-blocking stdin terminal: the only input that survives a borne
+  with no window
+- 🟢 hot vendor swap in four steps (`use()`)
 
-### Faille mesuree, pas corrigee
+### Measured failure, not fixed
 
-- 🔴 `set graphic2 <nom>` passe par la branche generique de `command()`
-  et n'appelle jamais `use()` : `_using` et `Current("graphic2")`
-  divergent. Reproduit — `get graphic` rend `sdl2` apres
+- 🔴 `set graphic2 <name>` goes through `command()`'s generic branch and
+  never calls `use()`: `_using` and `Current("graphic2")` diverge.
+  Reproduced — `get graphic` still returns `sdl2` after
   `set graphic2 sfml`
 
-## Propose, pas ecrit
+## Proposed, not written
 
-- 🟡 `_using` supprime, remplace par un `Binding` epingle — le bug
-  ci-dessus deviendrait inecrivable
-- 🟡 cibles `_headers` et `_exec` : une arcade pourrait en charger une
-  autre
+- 🟡 `_using` removed, replaced by a pinned `Binding` — the bug above
+  would become unwritable
+- 🟡 `_headers` and `_exec` targets: an arcade could load another one

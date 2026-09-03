@@ -1,18 +1,18 @@
-# documentation — journal
+# documentation — changelog
 
-Marqueurs : 🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose
-dans le plan, code non ecrit.
+Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
+in the plan, no code written yet.
 
 ## v0.1.0
 
-- 🟢 `repos.cmake` : la liste, seul fichier a editer
-- 🟢 `VERSIONS.md`, et les logs par repo (ce fichier compris)
-- 🔵 `docs/DoxygenLayout.xml` : les onglets Classes/Interfaces/Structs/
-  Namespaces/Concepts etaient tous `visible="no"` — les pages existaient,
-  rien n'y menait. 16 entrees rallumees
-- 🔵 `docs/Doxyfile.in` : `EXCLUDE_PATTERNS = */build/*` excluait sans le
-  vouloir tout `_deps/`, puisque FetchContent le pose sous le dossier de
-  build. Doxygen ne parsait plus un seul `.hpp` des 14 repos agreges — un
-  run CI qui semblait reussir (exit 0) ne parsait en realite que ses
-  propres fichiers `.dox`. Verifie sur le site en ligne apres correction :
-  Classes, Files, Namespaces, `hierarchy.html`, 345 pages de classes
+- 🟢 `repos.cmake`: the list, the only file to edit
+- 🟢 `VERSIONS.md`, and the per-repo logs
+- 🔵 `docs/DoxygenLayout.xml`: the Classes/Interfaces/Structs/Namespaces/
+  Concepts tabs were all `visible="no"` — the pages existed, nothing
+  linked to them. 16 entries turned back on
+- 🔵 `docs/Doxyfile.in`: `EXCLUDE_PATTERNS = */build/*` was unintentionally
+  excluding all of `_deps/`, since FetchContent places it under the build
+  directory. Doxygen was no longer parsing a single `.hpp` across the 14
+  aggregated repos — a CI run that looked green (exit 0) was only parsing
+  its own `.dox` files. Verified live after the fix: Classes, Files,
+  Namespaces, `hierarchy.html`, 345 class pages

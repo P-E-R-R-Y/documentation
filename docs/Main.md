@@ -5,7 +5,7 @@
 
 - @ref utilities "Utilitaires" — ecs, i18n, maths, system, procedurals, modulemanager
 - @ref contracts "Contrats" — imodule, igraphic, iaudio, icore
-- @ref vendors "Vendors" — raylib_impl, sfml_impl
+- @ref vendors "Vendors" — raylib_impl, sfml_impl, sdl2_impl, sdl3_impl
 
 ## Regenerer
 

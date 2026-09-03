@@ -1,22 +1,22 @@
-# conformance — journal
+# conformance — changelog
 
-Marqueurs : 🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose
-dans le plan, code non ecrit.
+Markers: 🟢 added · 🔴 breaking · 🔵 fix · ⚪ internal or docs · 🟡 proposed
+in the plan, no code written yet.
 
-## *n'existe pas, entierement propose*
+## *doesn't exist yet, entirely proposed*
 
-| cas | la ligne qui le definirait | manager |
+| case | the line that would define it | manager |
 |---|---|---|
-| `exec` | `launch<DemoApp>(assets)` | non |
-| `stack` | `SfmlWindow w(960, 540, "x")` | non |
-| `heap` | `new SfmlWindow(...)` | non |
-| `contract` | `IWindow2 *w = new SfmlWindow(...)` | non |
-| `factory` | `vendor.createWindow(...)` | non |
-| `dynamic` | `Load()` + `Binding<T>` | oui |
-| `mixed` | `Adopt(&builtin)` + `Load(dll)` | oui |
+| `exec` | `launch<DemoApp>(assets)` | no |
+| `stack` | `SfmlWindow w(960, 540, "x")` | no |
+| `heap` | `new SfmlWindow(...)` | no |
+| `contract` | `IWindow2 *w = new SfmlWindow(...)` | no |
+| `factory` | `vendor.createWindow(...)` | no |
+| `dynamic` | `Load()` + `Binding<T>` | yes |
+| `mixed` | `Adopt(&builtin)` + `Load(dll)` | yes |
 
-- 🟡 `DemoScene.hpp` a dedupliquer — aujourd'hui identique a l'octet pres
-  entre `sfml_impl/examples` et `raylib_impl/examples`, les deux seuls
-  vendors qui ont des exemples
-- 🟡 critere mesurable prevu : `wc -l cases/*.cpp` — un niveau qui demande
-  du code particulier grossirait, et ca se verrait
+- 🟡 `DemoScene.hpp` to deduplicate — today identical byte-for-byte
+  between `sfml_impl/examples` and `raylib_impl/examples`, the only two
+  vendors with examples at all
+- 🟡 planned measurable criterion: `wc -l cases/*.cpp` — a level that
+  needs special-case code would grow, and it would show

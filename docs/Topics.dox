@@ -39,3 +39,9 @@
 /** @addtogroup sfml
  *  @ingroup vendors
  */
+/** @addtogroup sdl2
+ *  @ingroup vendors
+ */
+/** @addtogroup sdl3
+ *  @ingroup vendors
+ */
