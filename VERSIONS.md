@@ -2,6 +2,10 @@
 
 Chaque repo porte sa propre version et nomme celle de ses dependances.
 
+Le detail, repo par repo, vit dans `log/{tools,contrat,vendor,vitrines}/<repo>_log.md`.
+Ce fichier-ci est la vue d'ensemble ; les logs sont la source, mis a jour
+en premier.
+
 ## Lire les numeros
 
 | tranche | sens |
@@ -103,7 +107,11 @@ Meme constat — personne ne les reference — mais tu ne les as pas nommes.
 
 # Ce que chaque version apporte
 
-🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc
+🟢 ajout · 🔴 rupture · 🔵 correctif · ⚪ interne ou doc · 🟡 propose dans le
+plan, code non ecrit
+
+Chaque repo a aussi son propre journal, plus detaille :
+`log/{tools,contrat,vendor,vitrines}/<repo>_log.md`.
 
 ## Tools
 
@@ -111,7 +119,7 @@ Meme constat — personne ne les reference — mais tu ne les as pas nommes.
 
 - 🟢 `Registry`, `Entity`, `SparseArray<T>` a creneaux `std::optional`
 - 🟢 `ISystem`, `killEntity` avec recyclage d'indices
-- ⚪ v1.0.1 : documentation
+- ⚪ v1.0.1 : `@addtogroup` sur les en-tetes, rien en API
 
 ### `i18n` — v1.0.0
 
@@ -131,8 +139,8 @@ Meme constat — personne ne les reference — mais tu ne les as pas nommes.
 
 - 🟢 `Noise`, `PoissonDiskSampling`, `Smoothing`, `TinyKeepDev`
 - 🟢 `WaveFunctionCollapse`, `Deterministic`, `Visualizer`
-- 🔵 `cmake.yml` ajoute — verifie en local : **56 tests verts**
-- 🔵 `.github/` commite : ni l'un ni l'autre workflow n'avait jamais tourne
+- 🔵 `.github/` commite (build ET doc) : ni l'un ni l'autre n'avait jamais
+  tourne — verifie en local, **56 tests verts**
 - ⚪ reste en `0.9` tant que `Readme.md`, supprime dans l'arbre, n'est pas
   tranche
 
@@ -140,41 +148,56 @@ Meme constat — personne ne les reference — mais tu ne les as pas nommes.
 
 - 🟢 `Vector2/3/4`, `Matrix`, `Quaternion`, `Color`, `Constants`, `Lambdify`
 - 🟢 `Rect` a semantique **coin** : `(x, y)` est le coin haut-gauche
-- 🔴 `Type.hpp` est un parapluie qui tire tout — `igraphic` n'inclut que lui,
-  huit fois, et paie `Vector4`, `Matrix` et `Quaternion` sans s'en servir
-- ⚪ declare `STATIC` sans aucune source : produit un `.a` vide, devrait etre
+- 🟢 28 tests
+
+Constate, non corrige :
+- `Type.hpp` est un en-tete parapluie qui tire tout — `igraphic` n'inclut
+  que lui, huit fois, et paie `Vector4`, `Matrix` et `Quaternion` sans s'en
+  servir
+- declare `STATIC` sans aucune source : produit un `.a` vide, devrait etre
   `INTERFACE`
 
 ### `cmake-utils` — v0.1.0
 
-- 🟢 `ToolVar.cmake` : survivre aux dependances qui forcent `BUILD_SHARED_LIBS`
-- 🟢 `perry_module()` : un appel, trois cibles
+- 🟢 `ToolVar.cmake` : `cmake_var_extract`/`cmake_var_restore`, pour survivre
+  aux dependances qui forcent `BUILD_SHARED_LIBS`
+- 🟡 `perry_module()` (PROPOSE, pas ecrit) : un appel, trois cibles
   (`_headers` INTERFACE · SHARED · `_exec` si `iapp`)
 
 ### `documentation` — v0.1.0
 
 - 🟢 `repos.cmake` : la liste, seul fichier a editer
-- 🟢 ce fichier
+- 🟢 ce fichier, et les logs par repo
+- 🔵 `docs/DoxygenLayout.xml` : les onglets Classes/Interfaces/Structs/
+  Namespaces/Concepts etaient tous `visible="no"` — les pages existaient,
+  rien n'y menait
+- 🔵 `docs/Doxyfile.in` : `EXCLUDE_PATTERNS = */build/*` excluait sans le
+  vouloir tout `_deps/`, puisque FetchContent le pose sous le dossier de
+  build — doxygen ne parsait plus un seul `.hpp`. Verifie sur le site en
+  ligne apres correction : Classes, Files, Namespaces, `hierarchy.html`
 
 ## Contrats & manager
 
 ### `imodule` — v0.1.0
 
-- 🟢 `IModule` : `type()`, `name()`, `claims()`, `bind()`, `registry()`
-- 🟢 `claims()` : les ressources qu'un module confisque au processus, en
-  chaines opaques comparees par egalite — il nomme une ressource, jamais un rival
+- 🟢 `IModule` : `type()`, `name()`, `bind()`, `registry()`, `acquire()`,
+  `release()`, `uses()`, `mustClose()`, `isClosed()`, `condemn()`, `reset()`
 - 🟢 `IModuleRegistry` : `Get`, `GetAllByType`, `GetAllByKey`, `GetAll`,
-  `Current`, plus `acquire()`, `release()`, `uses()`, `condemned()`
-- 🔴 la comptabilite quitte la dll : la table tient ses propres chiffres
-- 🔴 `Select()` quitte la vue invite — un invite ne peut plus re-pointer le
-  contrat de tout le monde
-- 🔴 `reset()` disparait : il n'existait que parce que l'etat vivait dans une
-  dll que macOS ne demappe pas
-- 🟢 13 tests sur fausses abstractions
+  `Current`, `Select`
+- 🟢 `accepts[]` : la convention, declaree par chaque interface qui en a
+  besoin (`igraphic`)
+- 🟢 13 tests sur fausses abstractions (`DummyModule`, `DummyRegistry`)
 
-### `igraphic` — v0.1.0 → **v0.2.0**
+**v0.2.0 — propose, rien de tout ceci n'est ecrit :**
+- 🟡 `claims()` sur `IModule` — les ressources qu'un module confisque au
+  processus, en chaines opaques
+- 🟡 `acquire()`/`release()`/`uses()`/`condemned()` deplaces sur
+  `IModuleRegistry` — la table cesserait de croire le module sur parole
+- 🟡 `Select()` retire de la vue invite
+- 🟡 `reset()` supprime
 
-**v0.1.0**
+### `igraphic` — v0.1.0
+
 - 🟢 `IGraphic2Module`, `IGraphic3Module` (qui derive du premier)
 - 🟢 `IWindow2/3`, `IKeyboard`, `IMouse`, `IGamepad`
 - 🟢 `ITexture`, `ISprite`, `IFont`, `IText`, `IPolygon`
@@ -182,89 +205,110 @@ Meme constat — personne ne les reference — mais tu ne les as pas nommes.
 - 🟢 `isReady()` sur les dix types, `setMouseVisibility(bool)`
 - 🟢 `accepts = {"graphic2", "graphic3"}` : la substitution vit dans le contrat
 
-**v0.2.0**
-- 🟢 `GraphicAssets` : on lui declare des ressources, il les refabrique quand
-  le vendor change et detruit dans l'ordre inverse
-- 🔵 inclut le granulaire au lieu de `Type.hpp`
+**v0.2.0 — propose, rien de tout ceci n'est ecrit :**
+- 🟡 `GraphicAssets` — on lui declarerait des ressources, il les
+  refabriquerait quand le vendor change et detruirait dans l'ordre inverse
+- 🟡 inclure le granulaire (`Vector2.hpp`) au lieu de `Type.hpp`
 
 ### `iaudio` — v0.1.0
 
 - 🟢 `IAudioModule`, `IMusic`, `ISound`, `ISoundBuffer`
 - 🟢 les trois etats de lecture epingles, `isReady()` sur les trois types
-- 🟢 `AudioAssets`, pendant de `GraphicAssets`
+
+**Propose, pas ecrit :**
+- 🟡 `AudioAssets`, pendant d'un `GraphicAssets` qui n'existe pas non plus
 
 ### `icore` — v0.1.0
 
-- ⚪ le tag `v1` est supprime : aucune release GitHub, aucun consommateur ne le
-  nomme. Dernier moment ou le geste est gratuit
 - 🟢 `ICore`, `IApp`, `IAppModule`, `ITickable`
-- 🟢 `launch<T>()` construit, `run()`, detruit **avant** de rendre le code de
-  sortie, pour que les dll se ferment proprement
+- 🟢 `launch<T>()` construit, `run()`, detruit **avant** de rendre le code
+  de sortie, pour que les dll se ferment proprement
 - 🟢 26 tests, dont la trace d'ordre et `LaunchDestroysBeforeReturning`
+- ⚪ le tag `v1` (non-semver) est supprime cette session, remplace par
+  `v0.1.0` — aucune release GitHub, aucun consommateur ne le nommait
 
 ### `modulemanager` — v0.1.0
 
 - 🟢 `Load`, `Unload`, `Reconcile` — condamne n'est pas ferme
-- 🟢 `SharedLibrary` en `RTLD_NOW | RTLD_LOCAL` : c'est ce flag qui fait tenir
-  deux vendors aux classes homonymes dans un meme processus
+- 🟢 `SharedLibrary` en `RTLD_NOW | RTLD_LOCAL` : c'est ce flag qui fait
+  tenir deux vendors aux classes homonymes dans un meme processus
 - 🟢 table Stride : une colonne par dll, une ligne par contrat, O(1)
-- 🟢 **`Adopt(IModule*, key)`** : un module lie en statique entre dans la table
-  sans `dlopen`. `Reconcile()` ne change pas d'une ligne
-- 🟢 **`Binding<T>`** : suivre un contrat, tenir le verrou, numeroter les
-  generations, epingler ou suivre le defaut
-- 🟢 registre des jetons : `acquire()` refuse si une ressource de `claims()`
-  est detenue ailleurs
-- 🔵 `Current(string)` et `GetAllByType(string)` parcourent enfin `accepts`
+- 🟢 aides typees `Get<T>`, `GetAllByType<T>`, `Current<T>`, `Select<T>`
+- 🟢 23 tests
 
-## Vendors & vitrines
+**v0.2.0 — propose, rien de tout ceci n'est ecrit :**
+- 🟡 `Adopt(IModule*, key)` — un module lie en statique entrerait dans la
+  table sans `dlopen`
+- 🟡 `Binding<T>` — suivre un contrat, tenir le verrou, numeroter les
+  generations
+- 🟡 registre de jetons : `acquire()` refuserait si une ressource de
+  `claims()` est detenue ailleurs
+
+## Vendors
 
 ### `sfml_impl`, `sdl2_impl`, `sdl3_impl`, `raylib_impl` — v0.1.0
 
 - 🟢 les trois premiers remplissent `graphic2` + `audio` ; `raylib_impl`
   remplit `graphic3` + `audio`, donc `graphic2` par la chaine `accepts`
 - 🟢 point d'entree unique `getModules()`
-- 🟢 `claims()` : `{"opengl"}` chez `sfml` et `raylib`, rien chez les deux
-  `sdl` qui passent par Metal. Aucun ne nomme l'autre
-- 🔴 `createTexture` et consorts rendent `nullptr` quand le chargement echoue,
-  au lieu d'un objet mort — supprime le `throw` sfml et le SIGSEGV raylib
-- 🔴 la cible STATIC devient INTERFACE : zero object code, et les 33 symboles
-  en collision entre `sdl2` et `sdl3` disparaissent
-- 🟢 `sdl2_impl` et `sdl3_impl` gagnent des exemples
-- ⚪ le module possede l'init des sous-systemes — sans lui, `SdlWindow` s'ouvre
-  et `SdlTexture` charge, mais `SdlFont` echoue faute de `TTF_Init()`
+- 🟢 cibles SHARED et STATIC (la STATIC recompile `sources/xxx.cpp` pour un
+  consommateur qui n'en a pas besoin — constate, pas corrige)
 
-### `arcade` — v0.1.0
+Faille mesuree cette session, pas corrigee :
+- 🔴 `createTexture`/`createSoundBuffer` etc. rendent un objet mort
+  (`isReady()==false`) au lieu de `nullptr` quand le chargement echoue —
+  sfml jette (`bad_optional_access`), raylib segfault. Reproduit avec des
+  sondes dediees sur les quatre vendors
+
+**Propose, pas ecrit :**
+- 🟡 `claims()` : `{"opengl"}` chez `sfml` et `raylib`, rien chez les deux
+  `sdl` qui passent par Metal
+- 🟡 cible STATIC → INTERFACE, zero object code
+- 🟡 `sdl2_impl`/`sdl3_impl` : toujours aucun exemple
+
+## Vitrines
+
+### `arcade` — v0.1.0 *(premier commit, pousse cette session)*
 
 - 🟢 charge tout ce qui exporte `getModules()`, trie par `type()`
 - 🟢 menu a colonnes, une par contrat decouvert — y compris ceux qu'elle ne
   sait pas utiliser
-- 🟢 terminal non bloquant sur stdin : la seule entree qui survit a une borne
-  sans fenetre
-- 🟢 bascule a chaud en quatre temps, l'ancien eteint avant le nouveau
-- 🔵 `_using` supprime, remplace par un `Binding` epingle : `set graphic2 sfml`
-  ne peut plus diverger de `get graphic`
-- 🟢 cibles `_headers` et SHARED : une arcade peut en charger une autre
+- 🟢 terminal non bloquant sur stdin
+- 🟢 bascule a chaud en quatre temps (`use()`)
 
-### `hunter` — v0.1.0
+Faille mesuree cette session, pas corrigee :
+- 🔴 `set graphic2 <nom>` passe par la branche generique de `command()` et
+  n'appelle jamais `use()` : `_using` et `Current("graphic2")` divergent.
+  Reproduit — `get graphic` rend `sdl2` apres `set graphic2 sfml`
+
+**Propose, pas ecrit :**
+- 🟡 `_using` supprime, remplace par un `Binding` epingle
+- 🟡 cibles `_headers` et `_exec`
+
+### `hunter` — v0.1.0 *(premier commit, pousse cette session)*
 
 - 🟢 ECS reel : `Position`, `Velocity`, `Depth`, `Life` et trois systemes
 - 🟢 `Perspective` : objet-valeur pur, testable sans fenetre ni registre
-- 🟢 pas fixe a 60 Hz — sur machine lente le jeu rame, il ne ralentit pas
+- 🟢 pas fixe a 60 Hz
 - 🟢 audio a quatre voix, delai d'impact proportionnel a la profondeur
-- 🔵 `Host` (380 l.) sorti vers `Binding<T>` + `GraphicAssets` / `AudioAssets`
-- 🟢 `sources/main.cpp` et cible `_exec` : hunter devient un binaire autonome
+- ⚪ `Host.hpp` (380 l.) et `Cadence.hpp` (114 l.), identiques a snake
 
-### `snake` — v0.1.0
+**Propose, pas ecrit :**
+- 🟡 `Host` a sortir vers `Binding<T>` + `GraphicAssets`/`AudioAssets`
+- 🟡 `sources/main.cpp` et cible `_exec`
+
+### `snake` — v0.1.0 *(premier commit, pousse cette session)*
 
 - 🟢 grille qui suit la fenetre, cinq pas par seconde de montre
-- 🔵 `Host` sorti, comme hunter
-- 🟢 cible `_exec`
+- ⚪ `Host.hpp`/`Cadence.hpp`, copies identiques a hunter
 
-### `conformance` — v0.1.0 *(a creer)*
+**Propose, pas ecrit :**
+- 🟡 `Host` sorti
+- 🟡 cible `_exec`
 
-Une scene, sept binaires.
+### `conformance` — *n'existe pas, entierement propose*
 
-| cas | la ligne qui le definit | manager |
+| cas | la ligne qui le definirait | manager |
 |---|---|---|
 | `exec` | `launch<DemoApp>(assets)` | non |
 | `stack` | `SfmlWindow w(960, 540, "x")` | non |
@@ -274,6 +318,7 @@ Une scene, sept binaires.
 | `dynamic` | `Load()` + `Binding<T>` | oui |
 | `mixed` | `Adopt(&builtin)` + `Load(dll)` | oui |
 
-- 🟢 `DemoScene.hpp` une seule fois, la ou il etait duplique a l'octet pres
-- 🟢 critere mesurable : `wc -l cases/*.cpp`. Un niveau qui demande du code
-  particulier grossit, et ca se voit
+- 🟡 `DemoScene.hpp` a dedupliquer — aujourd'hui identique a l'octet pres
+  entre `sfml_impl/examples` et `raylib_impl/examples`, dans les deux seuls
+  vendors qui ont des exemples
+- 🟡 critere mesurable prevu : `wc -l cases/*.cpp`
