@@ -1062,7 +1062,14 @@ EXCLUDE_SYMLINKS       = NO
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = */build/*
+# Vide, volontairement. INPUT ne pointe jamais sur le dossier de build lui-
+# meme : chaque repo fetch livre "includes" et "sources", pas sa racine. Un
+# motif "*/build/*" avait l'air prudent, mais FetchContent depose les repos
+# SOUS le build (${CMAKE_BINARY_DIR}/_deps par defaut) : ce motif matchait
+# donc /chemin/vers/build/_deps/ecs/includes/... et excluait tout. Doxygen
+# trouvait les dossiers (les pages "dir_*" se generaient), mais plus aucun
+# fichier dedans - EXTRACT_ALL n'a jamais eu de classe a extraire.
+EXCLUDE_PATTERNS       =
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
