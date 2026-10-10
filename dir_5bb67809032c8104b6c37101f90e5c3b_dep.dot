@@ -1,0 +1,16 @@
+digraph "iaudio/includes"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_6e9211dba765e38967e3d2c33afe2e81 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="iaudio", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_6e9211dba765e38967e3d2c33afe2e81.html",tooltip=""]
+  dir_5bb67809032c8104b6c37101f90e5c3b [label="includes", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_5bb67809032c8104b6c37101f90e5c3b.html",tooltip=""];
+  }
+  dir_8c794f3897e690f1ad5fe8e8608ae504 [label="imodule", fillcolor="#edf0f7", color="red", style="filled", URL="dir_8c794f3897e690f1ad5fe8e8608ae504.html",tooltip=""];
+  dir_f360e9082f3e902e3c421200517d7a19 [label="system", fillcolor="#edf0f7", color="red", style="filled", URL="dir_f360e9082f3e902e3c421200517d7a19.html",tooltip=""];
+  dir_5bb67809032c8104b6c37101f90e5c3b->dir_8c794f3897e690f1ad5fe8e8608ae504 [headlabel="1", labeldistance=1.5 headhref="dir_000040_000037.html" href="dir_000040_000037.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_5bb67809032c8104b6c37101f90e5c3b->dir_f360e9082f3e902e3c421200517d7a19 [headlabel="2", labeldistance=1.5 headhref="dir_000040_000070.html" href="dir_000040_000070.html" color="steelblue1" fontcolor="steelblue1"];
+}
