@@ -1,0 +1,16 @@
+digraph "procedurals/includes"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_be9847c4d0a6fb974e7cc36e8fd20fd6 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="procedurals", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_be9847c4d0a6fb974e7cc36e8fd20fd6.html",tooltip=""]
+  dir_565f2c93c980cc16166ab416262034af [label="includes", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_565f2c93c980cc16166ab416262034af.html",tooltip=""];
+  }
+  dir_80fe2d27ac46b17c5a7829d52994a280 [label="maths", fillcolor="#edf0f7", color="red", style="filled", URL="dir_80fe2d27ac46b17c5a7829d52994a280.html",tooltip=""];
+  dir_f360e9082f3e902e3c421200517d7a19 [label="system", fillcolor="#edf0f7", color="red", style="filled", URL="dir_f360e9082f3e902e3c421200517d7a19.html",tooltip=""];
+  dir_565f2c93c980cc16166ab416262034af->dir_80fe2d27ac46b17c5a7829d52994a280 [headlabel="1", labeldistance=1.5 headhref="dir_000046_000052.html" href="dir_000046_000052.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_565f2c93c980cc16166ab416262034af->dir_f360e9082f3e902e3c421200517d7a19 [headlabel="2", labeldistance=1.5 headhref="dir_000046_000070.html" href="dir_000046_000070.html" color="steelblue1" fontcolor="steelblue1"];
+}
