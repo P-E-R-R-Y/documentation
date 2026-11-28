@@ -1,0 +1,21 @@
+digraph "sdl2_impl"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_f88da2073f92343def18c2f3a6bf1b50 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_f88da2073f92343def18c2f3a6bf1b50.html",tooltip=""]
+    dir_f88da2073f92343def18c2f3a6bf1b50 [shape=plaintext, label="sdl2_impl"];
+  dir_cf0692b504d4402eb5066c9f211edb4b [label="docs", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_cf0692b504d4402eb5066c9f211edb4b.html",tooltip=""];
+  dir_99a36f590b7065de612675b382da52cf [label="includes", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_99a36f590b7065de612675b382da52cf.html",tooltip=""];
+  dir_a7cb8436b914b48c41e0e183075b5e31 [label="sources", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_a7cb8436b914b48c41e0e183075b5e31.html",tooltip=""];
+  }
+  dir_6e9211dba765e38967e3d2c33afe2e81 [label="iaudio", fillcolor="#edf0f7", color="red", style="filled", URL="dir_6e9211dba765e38967e3d2c33afe2e81.html",tooltip=""];
+  dir_7464f06849eda7935048c437affee922 [label="igraphic", fillcolor="#edf0f7", color="red", style="filled", URL="dir_7464f06849eda7935048c437affee922.html",tooltip=""];
+  dir_f360e9082f3e902e3c421200517d7a19 [label="system", fillcolor="#edf0f7", color="red", style="filled", URL="dir_f360e9082f3e902e3c421200517d7a19.html",tooltip=""];
+  dir_99a36f590b7065de612675b382da52cf->dir_6e9211dba765e38967e3d2c33afe2e81 [headlabel="4", labeldistance=1.5 headhref="dir_000048_000034.html" href="dir_000048_000034.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_99a36f590b7065de612675b382da52cf->dir_7464f06849eda7935048c437affee922 [headlabel="10", labeldistance=1.5 headhref="dir_000048_000036.html" href="dir_000048_000036.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_99a36f590b7065de612675b382da52cf->dir_f360e9082f3e902e3c421200517d7a19 [headlabel="1", labeldistance=1.5 headhref="dir_000048_000070.html" href="dir_000048_000070.html" color="steelblue1" fontcolor="steelblue1"];
+}
